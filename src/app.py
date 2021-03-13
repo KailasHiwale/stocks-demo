@@ -74,9 +74,11 @@ def stocks_stats():
 			jsonschema.validate(request_data, schema_validator.STOCKS)
 		except jsonschema.exceptions.ValidationError as val_err:
 			return make_response(str(val_err), 400)
-
-		sa = StockAnalysis('stockdb')
+		conn = Connect()
+		mongodb = conn.get_mongodb_connection()
+		sa = StockAnalysis(mongodb)
 		result = sa.stock_analysis(request_data)
+		conn.close_connection()
 
 		return result
 
