@@ -52,7 +52,7 @@ def signin():
 		if validated_user[0]['password'] != password:
 			return jsonify({"msg": "Invalid password"}), 401
 	else:
-		return jsonify({"msg": "Bad username or password"}), 401
+		return jsonify({"msg": "Invalid username"}), 401
 
 	access_token = create_access_token(identity=username)
 
